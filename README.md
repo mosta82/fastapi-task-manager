@@ -4,7 +4,7 @@ A secure and robust Task Management RESTful API built with **FastAPI**, **SQLite
 
 ---
 
-## 🚀 Features
+##  Features
 
 * **User Authentication:** Secure signup and login using JWT (JSON Web Tokens) and OAuth2.
 * **Task Management (CRUD):** Create, read, update, and delete tasks associated with specific users.
@@ -14,7 +14,7 @@ A secure and robust Task Management RESTful API built with **FastAPI**, **SQLite
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Language:** Python 3.x
 * **Framework:** FastAPI
