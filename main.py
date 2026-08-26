@@ -8,6 +8,9 @@ import schemas
 import database
 import hashing
 import jwt_token as token_file
+from typing import Optional
+from fastapi import APIRouter, Query
+from sqlalchemy.orm import Session
 
 # Create all database tables on startup
 models.Base.metadata.create_all(bind=database.engine)
@@ -90,9 +93,24 @@ def create_task(
 
 # ==================== 2. READ (ALL) OPERATION ====================
 @app.get("/tasks/", response_model=list[schemas.TaskResponse])
-def get_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """Retrieve all tasks from the database with pagination support."""
-    tasks = db.query(models.Task).offset(skip).limit(limit).all()
+def get_tasks(
+    skip: int = 0, 
+    limit: int = 100, 
+    completed: Optional[bool] = Query(None, description="Filter tasks by completion status"),
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    """Retrieve all tasks for the logged-in user with pagination and optional completion status filtering."""
+    
+    # 
+    query = db.query(models.Task).filter(models.Task.owner_id == current_user.id)
+    
+    # (true/false)
+    if completed is not None:
+        query = query.filter(models.Task.is_completed == completed)
+        
+    # 
+    tasks = query.offset(skip).limit(limit).all()
     return tasks
 
 # ==================== 3. READ (SINGLE) OPERATION ====================
