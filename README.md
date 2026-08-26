@@ -30,12 +30,33 @@ If you have Docker installed on your computer, you can run the app with a single
 
 ```bash
 docker-compose up --build
+Then open your browser and go to: http://127.0.0.1:8000/docs
 
----
+⚙️ Running Locally (Without Docker)
+Clone the repository:
 
-## ⚙️ Running Locally (Without Docker)
+Bash
+git clone [https://github.com/mosta82/fastapi-task-manager.git](https://github.com/mosta82/fastapi-task-manager.git)
+cd fastapi-task-manager
+Create and activate a virtual environment:
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/mosta82/fastapi-task-manager.git](https://github.com/mosta82/fastapi-task-manager.git)
-   cd fastapi-task-manager
+Bash
+python -m venv venv
+venv\Scripts\activate  # On Windows
+Install dependencies:
+
+Bash
+pip install -r requirements.txt
+Run the FastAPI server:
+
+Bash
+uvicorn main:app --reload
+Open API Documentation:
+
+Swagger UI: http://127.0.0.1:8000/docs
+
+🧪 Running Tests
+To run the automated test suite, use pytest:
+
+Bash
+pytest
